@@ -20,10 +20,10 @@ class AuthController extends Controller
             'password2' => 'required|same:password'
         ]);
         if ($validator->fails()) {
-            return $this->ErrorRespone('validasi error' , $validator->errors());
+            return $this->ErrorRespone('validasi error', $validator->errors());
         }
 
-        $checkemail = User::where("email",$input['email'])->first();
+        $checkemail = User::where("email", $input['email'])->first();
         if ($checkemail) {
             return $this->ErrorRespone('email already');
         }
@@ -39,9 +39,6 @@ class AuthController extends Controller
         ];
 
         return $this->SuccessRespone($content, "user created");
-
-
-
     }
     public function login(Request $request)
     {
@@ -51,7 +48,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         if ($validator->fails()) {
-            return $this->ErrorRespone('validasi error' , $validator->errors());
+            return $this->ErrorRespone('validasi error', $validator->errors());
         }
         if (Auth::attempt([
             'email' => $request->email,
@@ -63,8 +60,8 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
             ];
-            return $this->SuccessRespone($content,'berhasil login');
-        }else{
+            return $this->SuccessRespone($content, 'berhasil login');
+        } else {
             return $this->ErrorRespone('gagal login');
         }
     }
